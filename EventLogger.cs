@@ -9,11 +9,14 @@ public class EventLogger
 
     public void Log(string message)
     {
-        // Implement adding a message to the log with a timestamp.
+        log.Add($"MySmartHome:{message}");
     }
 
     public void ShowLog()
     {
-        // Implement displaying the log entries in the console.
+        foreach (var line in log)
+        {
+            Console.WriteLine($"{line}\n");
+        }
     }
 }
