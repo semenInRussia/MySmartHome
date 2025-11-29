@@ -44,7 +44,7 @@ public class SmartHomeController
     {
         foreach (var dev in devices)
         {
-            if (deviceName == dev.GetType().FullName)
+            if (deviceName == dev.GetType().Name)
             {
                 dev.ExecuteCommand(command);
             }
