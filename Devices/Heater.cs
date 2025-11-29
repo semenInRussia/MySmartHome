@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MySmartHome.Devices;
+﻿namespace MySmartHome.Devices;
 
 public class Heater : ISmartDevice
 {
@@ -10,18 +7,45 @@ public class Heater : ISmartDevice
 
     public void HandleEvent(string eventType, object eventData)
     {
-        // Implement handling "TemperatureChanged" event:
-        // Turn on heater if temperature is below minTemperature.
-        // Turn off heater if temperature is above or equal to minTemperature.
+        if (eventType == "TemperatureChanged")
+        {
+            int temperature = (int)eventData;
+            if (temperature >= minTemperature && isOn)
+            {
+                isOn = false;
+                Console.WriteLine("Heater turned off (High Temperature).");
+            }
+            else if (temperature < minTemperature && isOn)
+            {
+                isOn = true;
+                Console.WriteLine("Heater turned on (Low Temperature).");
+            }
+        }
     }
 
     public void Configure(Dictionary<string, object> settings)
     {
-        // Implement configuring the minimum temperature for turning on the heater.
+        if (settings.ContainsKey("MinTemperature"))
+            minTemperature = (int)settings["MinTemperature"];
+
+        Console.WriteLine($"Heater configured: Min={minTemperature}°C.");
     }
 
     public void ExecuteCommand(string command)
     {
-        // Implement manual control of the heater (turn on/off).
+        if (command == "On")
+        {
+            isOn = true;
+            Console.WriteLine("Heater manually turned on.");
+        }
+        else if (command == "Off")
+        {
+            isOn = false;
+            Console.WriteLine("Heater manually turned off.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid command for Heater.");
+        }
     }
 }

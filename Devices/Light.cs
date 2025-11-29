@@ -1,25 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace MySmartHome.Devices;
 
-namespace MySmartHome.Devices;
+using System;
+using System.Runtime.Serialization;
 
 public class Light : ISmartDevice
 {
-    private bool isOn;
+    private bool isOn = false;
+    private double brightness = 0.0;
 
     public void HandleEvent(string eventType, object eventData)
     {
-        // Implement handling "DayTimeChanged" event:
-        // Turn on light in the morning, turn off light at night.
+        if (eventType == "DayTimeChanged")
+        {
+            var newDayTime = (string)eventData;
+            isOn = newDayTime == "morning";
+            var state = isOn ? "on" : "off";
+            Console.WriteLine($"Light turned {state}, because time");
+        }
     }
 
     public void Configure(Dictionary<string, object> settings)
     {
-        // Implement configuring light parameters (e.g., brightness).
+        if (settings.TryGetValue("Brightness", out object? val))
+            brightness = (double)val;
+
+        Console.WriteLine($"Light configured: Brightness={brightness}");
     }
 
     public void ExecuteCommand(string command)
     {
-        // Implement manual control of the light (turn on/off).
+        if (command == "On")
+        {
+            isOn = true;
+            Console.WriteLine("Light manually turned on.");
+        }
+        else if (command == "Of")
+        {
+            isOn = false;
+            Console.WriteLine("Light manually turned off.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid command for Light.");
+        }
     }
 }
