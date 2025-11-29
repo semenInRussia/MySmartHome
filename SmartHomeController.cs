@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using MySmartHome.Devices;
 
 namespace SmartHomeSystem;
@@ -15,7 +16,7 @@ public class SmartHomeController
 
     public void RegisterDevice(ISmartDevice device)
     {
-        // Implement adding a device to the devices list.
+        devices.Add(device);
     }
 
     public void ChangeDayTime(string timeOfDay)
@@ -27,21 +28,31 @@ public class SmartHomeController
 
     public void ChangeTemperature(int temperature)
     {
-        // Implement triggering the OnTemperatureChanged event and logging the event.
+        Console.WriteLine($"Event: Temperature changed to {temperature}.");
+        logger.Log($"Temperature changed to {temperature}.");
+        OnTemperatureChanged?.Invoke(temperature);
     }
 
     public void DetectMotion()
     {
-        // Implement triggering the OnMotionDetected event and logging the event.
+        Console.WriteLine($"Event: Motion detected.");
+        logger.Log($"A motion detected");
+        OnMotionDetected?.Invoke();
     }
 
     public void TriggerDevice(string deviceName, string command)
     {
-        // Implement finding the device by name, calling ExecuteCommand, and logging.
+        foreach (var dev in devices)
+        {
+            if (deviceName == dev.GetType().FullName)
+            {
+                dev.ExecuteCommand(command);
+            }
+        }
     }
 
     public void ShowLog()
     {
-        // Implement showing the event log via logger.
+        logger.ShowLog();
     }
 }
