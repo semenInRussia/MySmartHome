@@ -78,13 +78,13 @@ class Program
 
     static DayTime ReadDayTime()
     {
-        Console.Write("Enter daytime (Morning/Night): ");
         while (true)
         {
+            Console.Write("Enter daytime (Morning/Night): ");
             string input = Console.ReadLine()!;
             if (input == "Morning") return DayTime.Morning;
-            if (input == "Night") return DayTime.Morning;
-            Console.WriteLine("Sorry, try again (Morning/Night).");
+            if (input == "Night") return DayTime.Night;
+            Console.WriteLine("Sorry, try again.");
         }
     }
 
