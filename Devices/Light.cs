@@ -27,14 +27,14 @@ public class Light : ISmartDevice
         Console.WriteLine($"Light configured: Brightness={brightness}");
     }
 
-    public void ExecuteCommand(string command)
+    public void ExecuteCommand(Command command)
     {
-        if (command == "On")
+        if (command == Command.On)
         {
             isOn = true;
             Console.WriteLine("Light manually turned on.");
         }
-        else if (command == "Of")
+        else if (command == Command.Off)
         {
             isOn = false;
             Console.WriteLine("Light manually turned off.");

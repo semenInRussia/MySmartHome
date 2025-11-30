@@ -35,14 +35,14 @@ public class AirConditioner : ISmartDevice
         Console.WriteLine($"Air Conditioner configured: Min={minTemperature}°C, Max={maxTemperature}°C.");
     }
 
-    public void ExecuteCommand(string command)
+    public void ExecuteCommand(Command command)
     {
-        if (command == "On")
+        if (command == Command.On)
         {
             isOn = true;
             Console.WriteLine("Air Conditioner manually turned on.");
         }
-        else if (command == "Off")
+        else if (command == Command.Off)
         {
             isOn = false;
             Console.WriteLine("Air Conditioner manually turned off.");

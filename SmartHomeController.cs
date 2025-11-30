@@ -40,7 +40,7 @@ public class SmartHomeController
         OnMotionDetected?.Invoke();
     }
 
-    public void TriggerDevice(string deviceName, string command)
+    public void TriggerDevice(string deviceName, Command command)
     {
         foreach (var dev in devices)
         {

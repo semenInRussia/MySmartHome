@@ -62,8 +62,7 @@ class Program
             {
                 Console.Write("Enter device name: ");
                 string deviceName = Console.ReadLine()!;
-                Console.Write("Enter command (On/Off): ");
-                string command = Console.ReadLine()!;
+                var command = ReadCommand();
                 controller.TriggerDevice(deviceName, command);
             }
             else if (choice == "3")
@@ -80,13 +79,24 @@ class Program
     static DayTime ReadDayTime()
     {
         Console.Write("Enter daytime (Morning/Night): ");
-
         while (true)
         {
             string input = Console.ReadLine()!;
             if (input == "Morning") return DayTime.Morning;
             if (input == "Night") return DayTime.Morning;
             Console.WriteLine("Sorry, try again (Morning/Night).");
+        }
+    }
+
+    static Command ReadCommand()
+    {
+        while (true)
+        {
+            Console.Write("Enter command (On/Off): ");
+            string input = Console.ReadLine()!;
+            if (input == "On") return Command.On;
+            if (input == "Off") return Command.Off;
+            Console.WriteLine("Sorry, try again.");
         }
     }
 }

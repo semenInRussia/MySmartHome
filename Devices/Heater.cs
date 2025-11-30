@@ -32,14 +32,14 @@ public class Heater : ISmartDevice
         Console.WriteLine($"Heater configured: Min={minTemperature}°C.");
     }
 
-    public void ExecuteCommand(string command)
+    public void ExecuteCommand(Command command)
     {
-        if (command == "On")
+        if (command == Command.On)
         {
             isOn = true;
             Console.WriteLine("Heater manually turned on.");
         }
-        else if (command == "Off")
+        else if (command == Command.Off)
         {
             isOn = false;
             Console.WriteLine("Heater manually turned off.");

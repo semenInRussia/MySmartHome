@@ -10,5 +10,5 @@ public interface ISmartDevice
     void HandleDayTimeChangedEvent(DayTime dayTime);
     void HandleMotionDetectedEvent();
     void Configure(Dictionary<string, object> settings);
-    void ExecuteCommand(string command);
+    void ExecuteCommand(Command command);
 }
