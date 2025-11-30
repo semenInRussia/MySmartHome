@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.WebSockets;
-using MySmartHome.Devices;
+﻿using MySmartHome.Devices;
 
 namespace SmartHomeSystem;
 
 public class SmartHomeController
 {
-    public event Action<string>? OnDayTimeChanged;
+    public event Action<DayTime>? OnDayTimeChanged;
     public event Action<int>? OnTemperatureChanged;
     public event Action? OnMotionDetected;
 
@@ -22,11 +19,11 @@ public class SmartHomeController
         OnMotionDetected += device.HandleMotionDetectedEvent;
     }
 
-    public void ChangeDayTime(string timeOfDay)
+    public void ChangeDayTime(DayTime dayTime)
     {
-        Console.WriteLine($"Event: Daytime changed to {timeOfDay}.");
-        logger.Log($"Daytime changed to {timeOfDay}.");
-        OnDayTimeChanged?.Invoke(timeOfDay);
+        Console.WriteLine($"Event: Daytime changed to {dayTime}.");
+        logger.Log($"Daytime changed to {dayTime}.");
+        OnDayTimeChanged?.Invoke(dayTime);
     }
 
     public void ChangeTemperature(int temperature)

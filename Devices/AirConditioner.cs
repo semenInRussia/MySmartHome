@@ -1,4 +1,6 @@
-﻿namespace MySmartHome.Devices;
+﻿using SmartHomeSystem;
+
+namespace MySmartHome.Devices;
 
 public class AirConditioner : ISmartDevice
 {
@@ -20,7 +22,7 @@ public class AirConditioner : ISmartDevice
         }
     }
 
-    public void HandleDayTimeChangedEvent(string dayTime) { }
+    public void HandleDayTimeChangedEvent(DayTime dayTime) { }
     public void HandleMotionDetectedEvent() { }
 
     public void Configure(Dictionary<string, object> settings)

@@ -45,9 +45,8 @@ class Program
                 switch (eventChoice)
                 {
                     case "1":
-                        Console.Write("Enter daytime (Morning/Night): ");
-                        string timeOfDay = Console.ReadLine()!;
-                        controller.ChangeDayTime(timeOfDay);
+                        var dayTime = ReadDayTime();
+                        controller.ChangeDayTime(dayTime);
                         break;
                     case "2":
                         Console.Write("Enter temperature: ");
@@ -75,6 +74,19 @@ class Program
             {
                 break;
             }
+        }
+    }
+
+    static DayTime ReadDayTime()
+    {
+        Console.Write("Enter daytime (Morning/Night): ");
+
+        while (true)
+        {
+            string input = Console.ReadLine()!;
+            if (input == "Morning") return DayTime.Morning;
+            if (input == "Night") return DayTime.Morning;
+            Console.WriteLine("Sorry, try again (Morning/Night).");
         }
     }
 }

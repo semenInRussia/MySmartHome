@@ -2,15 +2,16 @@
 
 using System;
 using System.Runtime.Serialization;
+using SmartHomeSystem;
 
 public class Light : ISmartDevice
 {
     private bool isOn = false;
     private double brightness = 0.0;
 
-    public void HandleDayTimeChangedEvent(string newDayTime)
+    public void HandleDayTimeChangedEvent(DayTime newDayTime)
     {
-        isOn = newDayTime == "morning";
+        isOn = newDayTime == DayTime.Morning;
         var state = isOn ? "on" : "off";
         Console.WriteLine($"Light turned {state}, because time");
     }
