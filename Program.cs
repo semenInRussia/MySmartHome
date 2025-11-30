@@ -13,19 +13,20 @@ class Program
         AirConditioner airConditioner = new();
         Heater heater = new();
 
-        // Register devices
-        controller.RegisterDevice(light);
-        controller.RegisterDevice(airConditioner);
-        controller.RegisterDevice(heater);
+        // Register devices and subscribe them to events
+        controller.RegisterSubscribe(light);
+        controller.RegisterSubscribe(airConditioner);
+        controller.RegisterSubscribe(heater);
 
         // Subscribe devices to events
-        controller.OnDayTimeChanged += time => light.HandleEvent("DayTimeChanged", time);
-        controller.OnTemperatureChanged += temp => airConditioner.HandleEvent("TemperatureChanged", temp);
-        controller.OnTemperatureChanged += temp => heater.HandleEvent("TemperatureChanged", temp);
+        // we don't need in following lines, because register already subscribe on controller events
+        // controller.OnDayTimeChanged += time => light.HandleEvent("DayTimeChanged", time);
+        // controller.OnTemperatureChanged += temp => airConditioner.HandleEvent("TemperatureChanged", temp);
+        // controller.OnTemperatureChanged += temp => heater.HandleEvent("TemperatureChanged", temp);
 
         // Example of configuring a device
-        Dictionary<string, object> acSettings = new Dictionary<string, object>
-          {
+        Dictionary<string, object> acSettings = new()
+        {
               { "MinTemperature", 20 },
               { "MaxTemperature", 30 }
           };

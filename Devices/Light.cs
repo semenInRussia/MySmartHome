@@ -8,16 +8,15 @@ public class Light : ISmartDevice
     private bool isOn = false;
     private double brightness = 0.0;
 
-    public void HandleEvent(string eventType, object eventData)
+    public void HandleDayTimeChangedEvent(string newDayTime)
     {
-        if (eventType == "DayTimeChanged")
-        {
-            var newDayTime = (string)eventData;
-            isOn = newDayTime == "morning";
-            var state = isOn ? "on" : "off";
-            Console.WriteLine($"Light turned {state}, because time");
-        }
+        isOn = newDayTime == "morning";
+        var state = isOn ? "on" : "off";
+        Console.WriteLine($"Light turned {state}, because time");
     }
+
+    public void HandleTemperatureChangedEvent(int temperature) { }
+    public void HandleMotionDetectedEvent() { }
 
     public void Configure(Dictionary<string, object> settings)
     {

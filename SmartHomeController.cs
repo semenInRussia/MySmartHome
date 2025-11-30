@@ -14,9 +14,12 @@ public class SmartHomeController
     private readonly List<ISmartDevice> devices = [];
     private readonly EventLogger logger = new();
 
-    public void RegisterDevice(ISmartDevice device)
+    public void RegisterSubscribe(ISmartDevice device)
     {
         devices.Add(device);
+        OnDayTimeChanged += device.HandleDayTimeChangedEvent;
+        OnTemperatureChanged += device.HandleTemperatureChangedEvent;
+        OnMotionDetected += device.HandleMotionDetectedEvent;
     }
 
     public void ChangeDayTime(string timeOfDay)

@@ -5,23 +5,22 @@ public class Heater : ISmartDevice
     private int minTemperature = 10;
     private bool isOn;
 
-    public void HandleEvent(string eventType, object eventData)
+    public void HandleTemperatureChangedEvent(int temperature)
     {
-        if (eventType == "TemperatureChanged")
+        if (temperature >= minTemperature && isOn)
         {
-            int temperature = (int)eventData;
-            if (temperature >= minTemperature && isOn)
-            {
-                isOn = false;
-                Console.WriteLine("Heater turned off (High Temperature).");
-            }
-            else if (temperature < minTemperature && isOn)
-            {
-                isOn = true;
-                Console.WriteLine("Heater turned on (Low Temperature).");
-            }
+            isOn = false;
+            Console.WriteLine("Heater turned off (High Temperature).");
+        }
+        else if (temperature < minTemperature && isOn)
+        {
+            isOn = true;
+            Console.WriteLine("Heater turned on (Low Temperature).");
         }
     }
+
+    public void HandleDayTimeChangedEvent(string dayTime) { }
+    public void HandleMotionDetectedEvent() { }
 
     public void Configure(Dictionary<string, object> settings)
     {

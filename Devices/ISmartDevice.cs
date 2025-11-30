@@ -5,7 +5,9 @@ namespace MySmartHome.Devices;
 
 public interface ISmartDevice
 {
-    void HandleEvent(string eventType, object eventData);
+    void HandleTemperatureChangedEvent(int temperature);
+    void HandleDayTimeChangedEvent(string dayTime);
+    void HandleMotionDetectedEvent();
     void Configure(Dictionary<string, object> settings);
     void ExecuteCommand(string command);
 }
