@@ -10,17 +10,19 @@ public class AirConditioner : ISmartDevice
     private int maxTemperature = 25;
     private bool isOn;
 
+    private readonly EventLogger logger = new();
+
     public void HandleTemperatureChangedEvent(int temperature)
     {
         if (temperature > maxTemperature && !isOn)
         {
             isOn = true;
-            Console.WriteLine("Air Conditioner turned on (High Temperature).");
+            logger.LogWriteLine("Air Conditioner turned on (High Temperature).");
         }
         else if (temperature < minTemperature && isOn)
         {
             isOn = false;
-            Console.WriteLine("Air Conditioner turned off (Low Temperature).");
+            logger.LogWriteLine("Air Conditioner turned off (Low Temperature).");
         }
     }
 
@@ -34,7 +36,7 @@ public class AirConditioner : ISmartDevice
         if (settings.ContainsKey("MaxTemperature"))
             maxTemperature = (int)settings["MaxTemperature"];
 
-        Console.WriteLine($"Air Conditioner configured: Min={minTemperature}°C, Max={maxTemperature}°C.");
+        logger.LogWriteLine($"Air Conditioner configured: Min={minTemperature}°C, Max={maxTemperature}°C.");
     }
 
     public void ExecuteCommand(Command command)
@@ -42,16 +44,16 @@ public class AirConditioner : ISmartDevice
         if (command == Command.On)
         {
             isOn = true;
-            Console.WriteLine("Air Conditioner manually turned on.");
+            logger.LogWriteLine("Air Conditioner manually turned on.");
         }
         else if (command == Command.Off)
         {
             isOn = false;
-            Console.WriteLine("Air Conditioner manually turned off.");
+            logger.LogWriteLine("Air Conditioner manually turned off.");
         }
         else
         {
-            Console.WriteLine("Invalid command for Air Conditioner.");
+            logger.LogWriteLine("Invalid command for Air Conditioner.");
         }
     }
 }

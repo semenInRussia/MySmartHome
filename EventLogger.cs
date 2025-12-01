@@ -9,7 +9,14 @@ public class EventLogger
 
     public void Log(string message)
     {
-        log.Add($"MySmartHome:{message}");
+        var d = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        log.Add($"{d}:MySmartHome:{message}");
+    }
+
+    public void LogWriteLine(string message)
+    {
+        Log(message);
+        Console.WriteLine(message);
     }
 
     public void ShowLog()

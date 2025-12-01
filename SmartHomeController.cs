@@ -43,6 +43,7 @@ public class SmartHomeController
     public void TriggerDevice(string deviceName, Command command)
     {
         var dev = devices.FirstOrDefault(d => d.Name.Equals(deviceName, StringComparison.OrdinalIgnoreCase));
+        logger.Log($"trigger a command ({command}) on device ({deviceName})");
         dev!.ExecuteCommand(command);
     }
 

@@ -9,17 +9,19 @@ public class Heater : ISmartDevice
     private int minTemperature = 10;
     private bool isOn;
 
+    private EventLogger logger = new();
+
     public void HandleTemperatureChangedEvent(int temperature)
     {
         if (temperature >= minTemperature && isOn)
         {
             isOn = false;
-            Console.WriteLine("Heater turned off (High Temperature).");
+            logger.LogWriteLine("Heater turned off (High Temperature).");
         }
         else if (temperature < minTemperature && isOn)
         {
             isOn = true;
-            Console.WriteLine("Heater turned on (Low Temperature).");
+            logger.LogWriteLine("Heater turned on (Low Temperature).");
         }
     }
 
@@ -31,7 +33,7 @@ public class Heater : ISmartDevice
         if (settings.ContainsKey("MinTemperature"))
             minTemperature = (int)settings["MinTemperature"];
 
-        Console.WriteLine($"Heater configured: Min={minTemperature}°C.");
+        logger.LogWriteLine($"Heater configured: Min={minTemperature}°C.");
     }
 
     public void ExecuteCommand(Command command)
@@ -39,16 +41,16 @@ public class Heater : ISmartDevice
         if (command == Command.On)
         {
             isOn = true;
-            Console.WriteLine("Heater manually turned on.");
+            logger.LogWriteLine("Heater manually turned on.");
         }
         else if (command == Command.Off)
         {
             isOn = false;
-            Console.WriteLine("Heater manually turned off.");
+            logger.LogWriteLine("Heater manually turned off.");
         }
         else
         {
-            Console.WriteLine("Invalid command for Heater.");
+            logger.LogWriteLine("Invalid command for Heater.");
         }
     }
 }
