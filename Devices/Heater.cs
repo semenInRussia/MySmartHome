@@ -4,6 +4,8 @@ namespace MySmartHome.Devices;
 
 public class Heater : ISmartDevice
 {
+    string ISmartDevice.Name => "Heater";
+
     private int minTemperature = 10;
     private bool isOn;
 

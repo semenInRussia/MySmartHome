@@ -4,6 +4,8 @@ namespace MySmartHome.Devices;
 
 public class AirConditioner : ISmartDevice
 {
+    string ISmartDevice.Name => "AirConditioner";
+
     private int minTemperature = 18;
     private int maxTemperature = 25;
     private bool isOn;

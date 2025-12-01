@@ -42,13 +42,8 @@ public class SmartHomeController
 
     public void TriggerDevice(string deviceName, Command command)
     {
-        foreach (var dev in devices)
-        {
-            if (deviceName == dev.GetType().Name)
-            {
-                dev.ExecuteCommand(command);
-            }
-        }
+        var dev = devices.FirstOrDefault(d => d.Name.Equals(deviceName, StringComparison.OrdinalIgnoreCase));
+        dev!.ExecuteCommand(command);
     }
 
     public void ShowLog()

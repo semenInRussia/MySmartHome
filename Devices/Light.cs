@@ -6,6 +6,8 @@ using SmartHomeSystem;
 
 public class Light : ISmartDevice
 {
+    string ISmartDevice.Name => "Light";
+
     private bool isOn = false;
     private double brightness = 0.0;
 
