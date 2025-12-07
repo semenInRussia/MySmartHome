@@ -14,9 +14,13 @@ class Program
         Heater heater = new();
 
         // Register devices and subscribe them to events
-        controller.RegisterSubscribe(light);
-        controller.RegisterSubscribe(airConditioner);
-        controller.RegisterSubscribe(heater);
+        controller.Register(light);
+        controller.Register(airConditioner);
+        controller.Register(heater);
+
+        controller.Subscribe(light);
+        controller.Subscribe(airConditioner);
+        controller.Subscribe(heater);
 
         // Subscribe devices to events
         // we don't need in following lines, because register already subscribe on controller events
