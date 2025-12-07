@@ -4,14 +4,14 @@ using System;
 using System.Runtime.Serialization;
 using SmartHomeSystem;
 
-public class Light : ISmartDevice
+public class Light(EventLogger _logger) : ISmartDevice
 {
     string ISmartDevice.Name => "Light";
 
     private bool isOn = false;
     private double brightness = 0.0;
 
-    private EventLogger logger = new();
+    private EventLogger logger = _logger;
 
     public void HandleDayTimeChangedEvent(DayTime newDayTime)
     {

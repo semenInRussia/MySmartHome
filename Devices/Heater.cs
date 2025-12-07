@@ -2,14 +2,14 @@
 
 namespace MySmartHome.Devices;
 
-public class Heater : ISmartDevice
+public class Heater(EventLogger _logger) : ISmartDevice
 {
     string ISmartDevice.Name => "Heater";
 
     private int minTemperature = 10;
     private bool isOn;
 
-    private EventLogger logger = new();
+    readonly private EventLogger logger = _logger;
 
     public void HandleTemperatureChangedEvent(int temperature)
     {
@@ -30,8 +30,8 @@ public class Heater : ISmartDevice
 
     public void Configure(Dictionary<string, object> settings)
     {
-        if (settings.ContainsKey("MinTemperature"))
-            minTemperature = (int)settings["MinTemperature"];
+        if (settings.TryGetValue("MinTemperature", out object? value))
+            minTemperature = (int)value;
 
         logger.LogWriteLine($"Heater configured: Min={minTemperature}°C.");
     }

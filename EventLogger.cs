@@ -19,6 +19,12 @@ public class EventLogger
         Console.WriteLine(message);
     }
 
+    public void LogWrite(string message)
+    {
+        Log(message);
+        Console.WriteLine(message);
+    }
+
     public void ShowLog()
     {
         foreach (var line in log)

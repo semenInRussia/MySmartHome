@@ -2,7 +2,7 @@
 
 namespace MySmartHome.Devices;
 
-public class AirConditioner : ISmartDevice
+public class AirConditioner(EventLogger _logger) : ISmartDevice
 {
     string ISmartDevice.Name => "AirConditioner";
 
@@ -10,7 +10,7 @@ public class AirConditioner : ISmartDevice
     private int maxTemperature = 25;
     private bool isOn;
 
-    private readonly EventLogger logger = new();
+    private readonly EventLogger logger = _logger;
 
     public void HandleTemperatureChangedEvent(int temperature)
     {

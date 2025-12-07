@@ -6,12 +6,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        SmartHomeController controller = new();
+        EventLogger logger = new();
+        SmartHomeController controller = new(logger);
 
         // Create devices
-        Light light = new();
-        AirConditioner airConditioner = new();
-        Heater heater = new();
+        Light light = new(logger);
+        AirConditioner airConditioner = new(logger);
+        Heater heater = new(logger);
 
         // Register devices and subscribe them to events
         controller.Register(light);
@@ -39,21 +40,21 @@ class Program
         // Control menu
         while (true)
         {
-            Console.WriteLine("Menu:\n1. Trigger Event\n2. Control Device\n3. Show Event Log\n4. Exit");
+            logger.LogWriteLine("Menu:\n1. Trigger Event\n2. Control Device\n3. Show Event Log\n4. Exit");
             string choice = Console.ReadLine()!;
 
             if (choice == "1")
             {
-                Console.WriteLine("Select event:\n1. Change Daytime\n2. Change Temperature\n3. Detect Motion");
+                logger.LogWriteLine("Select event:\n1. Change Daytime\n2. Change Temperature\n3. Detect Motion");
                 string eventChoice = Console.ReadLine()!;
                 switch (eventChoice)
                 {
                     case "1":
-                        var dayTime = ReadDayTime();
+                        var dayTime = ReadDayTime(logger);
                         controller.ChangeDayTime(dayTime);
                         break;
                     case "2":
-                        Console.Write("Enter temperature: ");
+                        logger.LogWrite("Enter temperature: ");
                         int temp = int.Parse(Console.ReadLine()!);
                         controller.ChangeTemperature(temp);
                         break;
@@ -64,9 +65,9 @@ class Program
             }
             else if (choice == "2")
             {
-                Console.Write("Enter device name: ");
+                logger.LogWrite("Enter device name: ");
                 string deviceName = Console.ReadLine()!;
-                var command = ReadCommand();
+                var command = ReadCommand(logger);
                 controller.TriggerDevice(deviceName, command);
             }
             else if (choice == "3")
@@ -80,27 +81,27 @@ class Program
         }
     }
 
-    static DayTime ReadDayTime()
+    static DayTime ReadDayTime(EventLogger logger)
     {
         while (true)
         {
-            Console.Write("Enter daytime (Morning/Night): ");
+            logger.LogWrite("Enter daytime (Morning/Night): ");
             string input = Console.ReadLine()!;
             if (input == "Morning") return DayTime.Morning;
             if (input == "Night") return DayTime.Night;
-            Console.WriteLine("Sorry, try again.");
+            logger.LogWriteLine("Sorry, try again.");
         }
     }
 
-    static Command ReadCommand()
+    static Command ReadCommand(EventLogger logger)
     {
         while (true)
         {
-            Console.Write("Enter command (On/Off): ");
+            logger.LogWrite("Enter command (On/Off): ");
             string input = Console.ReadLine()!;
             if (input == "On") return Command.On;
             if (input == "Off") return Command.Off;
-            Console.WriteLine("Sorry, try again.");
+            logger.LogWriteLine("Sorry, try again.");
         }
     }
 }
