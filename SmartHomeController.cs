@@ -60,6 +60,11 @@ public class SmartHomeController(EventLogger _logger)
     public void TriggerDevice(string deviceName, Command command)
     {
         var dev = devices.FirstOrDefault(d => d.Name.Equals(deviceName, StringComparison.OrdinalIgnoreCase));
+        if (dev == null)
+        {
+            logger.LogWriteLine($"couldn't find a device with name: {deviceName}");
+            return;
+        }
         logger.LogWriteLine($"trigger a command ({command}) on device ({deviceName})");
         dev!.ExecuteCommand(command);
     }
